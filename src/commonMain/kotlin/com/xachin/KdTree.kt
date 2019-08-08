@@ -1,5 +1,6 @@
 package com.xachin
 
+import com.xachin.model.HyperRect
 import com.xachin.model.KdNode
 import com.xachin.model.Point
 
@@ -25,7 +26,16 @@ class KdTree(inputPoints: Collection<Point>) {
         if (points.isEmpty()) return null
 
         val sortedPoints = points.sortedBy { it.coordinates[d] }
-        sortedPoints.forEachIndexed { index, point -> points[index] = point }
+        val firstPoint = sortedPoints.first()
+        val lowerBounds = firstPoint.coordinates.copyOf()
+        val upperBounds = firstPoint.coordinates.copyOf()
+        sortedPoints.forEachIndexed { index, point ->
+            points[index] = point
+            point.coordinates.forEachIndexed { i, c ->
+                if (lowerBounds[i] > c) lowerBounds[i] = c
+                if (upperBounds[i] < c) upperBounds[i] = c
+            }
+        }
 
         var median = points.size / 2
         while (median > 0 && points[median - 1].coordinates[d] == points[median].coordinates[d]) median--
@@ -35,6 +45,7 @@ class KdTree(inputPoints: Collection<Point>) {
         return KdNode(
             points[median],
             d,
+            HyperRect(lowerBounds, upperBounds),
             generateTree(points.subList(0, median), nextDimension),
             generateTree(points.subList(median + 1, points.size), nextDimension)
         )
