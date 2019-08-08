@@ -4,9 +4,9 @@
     <facet type="kotlin-language" name="Kotlin">
       <configuration version="3" platform="JavaScript " useProjectSettings="false" isTestModule="true" externalProjectId="kd-tree-kotlin">
         <sourceSets>
+          <sourceSet>com.example.kd-tree-kotlin.commonTest</sourceSet>
           <sourceSet>com.example.kd-tree-kotlin.jsMain</sourceSet>
           <sourceSet>com.example.kd-tree-kotlin.commonMain</sourceSet>
-          <sourceSet>com.example.kd-tree-kotlin.commonTest</sourceSet>
         </sourceSets>
         <newMppModelJpsModuleKind>COMPILATION_AND_SOURCE_SET_HOLDER</newMppModelJpsModuleKind>
         <compilerSettings />
